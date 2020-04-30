@@ -61,6 +61,17 @@ class TennisTest extends TestCase
         $this->shouldScore('forty-love');
     }
 
+    /**
+     * @test
+     */
+    public function thirty_thirty()
+    {
+        $this->givenPlayer1GainPoint(2);
+        $this->givenPlayer2GainPoint(2);
+
+        $this->shouldScore('thirty-thirty');
+    }
+
     protected function setUp()
     {
         parent::setUp();
