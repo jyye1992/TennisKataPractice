@@ -39,6 +39,12 @@ class Tennis
                     return 'Advantage: ' . $this->player2->name;
                 }
             }
+        } elseif (abs($this->player1->point - $this->player2->point) > 3) {
+            if ($this->player1->point > $this->player2->point) {
+                return 'Winner: ' . $this->player1->name;
+            } else {
+                return 'Winner: ' . $this->player2->name;
+            }
         }
 
         return $scoreText[$this->player1->point] . '-' . $scoreText[$this->player2->point];

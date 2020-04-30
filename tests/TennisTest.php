@@ -25,6 +25,11 @@ class TennisTest extends TestCase
         $this->shouldScore('love-love');
     }
 
+    private function shouldScore($score): void
+    {
+        $this->assertEquals($score, $this->tennis->score());
+    }
+
     /**
      * @test
      */
@@ -36,6 +41,14 @@ class TennisTest extends TestCase
     }
 
     /**
+     * @param $point
+     */
+    private function givenPlayer1GainPoint($point): void
+    {
+        $this->player1->gainPoint($point);
+    }
+
+    /**
      * @test
      */
     public function fifteen_fifteen()
@@ -44,6 +57,14 @@ class TennisTest extends TestCase
         $this->givenPlayer2GainPoint(1);
 
         $this->shouldScore('fifteen-fifteen');
+    }
+
+    /**
+     * @param $point
+     */
+    private function givenPlayer2GainPoint($point): void
+    {
+        $this->player2->gainPoint($point);
     }
 
     /**
@@ -110,12 +131,29 @@ class TennisTest extends TestCase
 
         $this->shouldScore('Advantage: ' . $this->player1Name);
 
+
         $this->givenPlayer1GainPoint(3);
         $this->givenPlayer2GainPoint(4);
 
         $this->shouldScore('Advantage: ' . $this->player2Name);
     }
 
+    /**
+     * @test
+     */
+    public function winner()
+    {
+        $this->givenPlayer1GainPoint(4);
+        $this->givenPlayer2GainPoint(0);
+
+        $this->shouldScore('Winner: ' . $this->player1Name);
+
+
+        $this->givenPlayer1GainPoint(0);
+        $this->givenPlayer2GainPoint(4);
+
+        $this->shouldScore('Winner: ' . $this->player2Name);
+    }
 
     protected function setUp()
     {
@@ -127,27 +165,6 @@ class TennisTest extends TestCase
         $this->player2 = new Player($this->player2Name, 0);
 
         $this->tennis = new Tennis($this->player1, $this->player2);
-    }
-
-    private function shouldScore($score): void
-    {
-        $this->assertEquals($score, $this->tennis->score());
-    }
-
-    /**
-     * @param $point
-     */
-    private function givenPlayer1GainPoint($point): void
-    {
-        $this->player1->gainPoint($point);
-    }
-
-    /**
-     * @param $point
-     */
-    private function givenPlayer2GainPoint($point): void
-    {
-        $this->player2->gainPoint($point);
     }
 
 }
