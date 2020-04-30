@@ -6,8 +6,8 @@ namespace App;
 
 class Tennis
 {
-public $player1;
-public $player2;
+    public $player1;
+    public $player2;
 
     /**
      * Tennis constructor.
@@ -22,7 +22,11 @@ public $player2;
 
     public function score()
     {
-        return 'love-love';
+        if ($this->player1->point == 1 && $this->player2->point == 0) {
+            return 'fifteen-love';
+        } else {
+            return 'love-love';
+        }
     }
 
 

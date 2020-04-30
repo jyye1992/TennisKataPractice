@@ -6,8 +6,8 @@ namespace App;
 
 class Player
 {
-public $name;
-public $point;
+    public $name;
+    public $point;
 
     /**
      * Player constructor.
@@ -20,6 +20,11 @@ public $point;
         $this->point = $point;
     }
 
-
-
+    /**
+     * @param mixed $point
+     */
+    public function gainPoint($point): void
+    {
+        $this->point = $point;
+    }
 }
