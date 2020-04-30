@@ -28,6 +28,8 @@ class Tennis
             return 'fifteen-fifteen';
         } elseif ($this->player1->point == 2 && $this->player2->point == 0) {
             return 'thirty-love';
+        } elseif ($this->player1->point == 3 && $this->player2->point == 0) {
+            return 'forty-love';
         } else {
             return 'love-love';
         }

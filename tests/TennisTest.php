@@ -75,5 +75,22 @@ class TennisTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @test
+     */
+    public function forty_love()
+    {
+        $player1 = new Player('name1', 0);
+        $player2 = new Player('name2', 0);
+        $tennis = new Tennis($player1, $player2);
+
+        $expected = 'forty-love';
+
+        $player1->gainPoint(3);
+
+        $actual = $tennis->score();
+
+        $this->assertEquals($expected, $actual);
+    }
 
 }
