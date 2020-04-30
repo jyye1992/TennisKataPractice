@@ -29,26 +29,64 @@ class Tennis
             3 => 'forty',
         ];
 
-        if ($this->player1->point > 2 && $this->player2->point > 2) {
-            if ($this->player1->point == $this->player2->point) {
+
+        if ($this->isPointMoreThenTwo()) {
+            if ($this->isDeuce()) {
                 return 'deuce';
-            } elseif (abs($this->player1->point - $this->player2->point)) {
-                if ($this->player1->point > $this->player2->point) {
-                    return 'Advantage: ' . $this->player1->name;
-                } else {
-                    return 'Advantage: ' . $this->player2->name;
-                }
+            } elseif ($this->isAdvantage()) {
+                return 'Advantage: ' . $this->willWin()->name;
             }
-        } elseif (abs($this->player1->point - $this->player2->point) > 3) {
-            if ($this->player1->point > $this->player2->point) {
-                return 'Winner: ' . $this->player1->name;
-            } else {
-                return 'Winner: ' . $this->player2->name;
-            }
+        } elseif ($this->isWinner()) {
+            return 'Winner: ' . $this->willWin()->name;
+        } else {
+            return $scoreText[$this->player1->point] . '-' . $scoreText[$this->player2->point];
         }
 
-        return $scoreText[$this->player1->point] . '-' . $scoreText[$this->player2->point];
     }
 
+    /**
+     * @return bool
+     */
+    private function isPointMoreThenTwo(): bool
+    {
+        return $this->player1->point > 2 && $this->player2->point > 2;
+    }
 
+    /**
+     * @return bool
+     */
+    private function isDeuce(): bool
+    {
+        return $this->player1->point == $this->player2->point;
+    }
+
+    /**
+     * @return float|int
+     */
+    private function isAdvantage()
+    {
+        return abs($this->player1->point - $this->player2->point);
+    }
+
+    /**
+     * @return mixed
+     */
+    private function willWin()
+    {
+        if ($this->player1->point > $this->player2->point) {
+            $player = $this->player1;
+        } else {
+            $player = $this->player2;
+        }
+
+        return $player;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isWinner(): bool
+    {
+        return abs($this->player1->point - $this->player2->point) > 3;
+    }
 }
