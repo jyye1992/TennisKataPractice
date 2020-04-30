@@ -2,6 +2,8 @@
 
 namespace Tests;
 
+use App\Player;
+use App\Tennis;
 use PHPUnit\Framework\TestCase;
 
 class TennisTest extends TestCase
