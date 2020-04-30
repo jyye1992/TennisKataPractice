@@ -8,19 +8,16 @@ use PHPUnit\Framework\TestCase;
 
 class TennisTest extends TestCase
 {
+    private $player1;
+    private $player2;
+    private $tennis;
+
     /**
      * @test
      */
     public function love_love()
     {
-        $player1 = new Player('name1', 0);
-        $player2 = new Player('name2', 0);
-        $tennis = new Tennis($player1, $player2);
-
-        $expected = 'love-love';
-        $actual = $tennis->score();
-
-        $this->assertEquals($expected, $actual);
+        $this->shouldScore('love-love');
     }
 
     /**
@@ -28,16 +25,9 @@ class TennisTest extends TestCase
      */
     public function fifteen_love()
     {
-        $player1 = new Player('name1', 0);
-        $player2 = new Player('name2', 0);
-        $tennis = new Tennis($player1, $player2);
+        $this->givenPlayer1GainPoint(1);
 
-        $expected = 'fifteen-love';
-
-        $player1->gainPoint(1);
-        $actual = $tennis->score();
-
-        $this->assertEquals($expected, $actual);
+        $this->shouldScore('fifteen-love');
     }
 
     /**
@@ -45,17 +35,10 @@ class TennisTest extends TestCase
      */
     public function fifteen_fifteen()
     {
-        $player1 = new Player('name1', 0);
-        $player2 = new Player('name2', 0);
-        $tennis = new Tennis($player1, $player2);
+        $this->givenPlayer1GainPoint(1);
+        $this->givenPlayer2GainPoint(1);
 
-        $expected = 'fifteen-fifteen';
-
-        $player1->gainPoint(1);
-        $player2->gainPoint(1);
-        $actual = $tennis->score();
-
-        $this->assertEquals($expected, $actual);
+        $this->shouldScore('fifteen-fifteen');
     }
 
     /**
@@ -63,16 +46,9 @@ class TennisTest extends TestCase
      */
     public function thirty_love()
     {
-        $player1 = new Player('name1', 0);
-        $player2 = new Player('name2', 0);
-        $tennis = new Tennis($player1, $player2);
+        $this->givenPlayer1GainPoint(2);
 
-        $expected = 'thirty-love';
-
-        $player1->gainPoint(2);
-        $actual = $tennis->score();
-
-        $this->assertEquals($expected, $actual);
+        $this->shouldScore('thirty-love');
     }
 
     /**
@@ -80,17 +56,40 @@ class TennisTest extends TestCase
      */
     public function forty_love()
     {
-        $player1 = new Player('name1', 0);
-        $player2 = new Player('name2', 0);
-        $tennis = new Tennis($player1, $player2);
+        $this->givenPlayer1GainPoint(3);
 
-        $expected = 'forty-love';
+        $this->shouldScore('forty-love');
+    }
 
-        $player1->gainPoint(3);
+    protected function setUp()
+    {
+        parent::setUp();
 
-        $actual = $tennis->score();
+        $this->player1 = new Player('name1', 0);
+        $this->player2 = new Player('name2', 0);
 
-        $this->assertEquals($expected, $actual);
+        $this->tennis = new Tennis($this->player1, $this->player2);
+    }
+
+    private function shouldScore($score): void
+    {
+        $this->assertEquals($score, $this->tennis->score());
+    }
+
+    /**
+     * @param $point
+     */
+    private function givenPlayer1GainPoint($point): void
+    {
+        $this->player1->gainPoint($point);
+    }
+
+    /**
+     * @param $point
+     */
+    private function givenPlayer2GainPoint($point): void
+    {
+        $this->player2->gainPoint($point);
     }
 
 }
