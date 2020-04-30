@@ -29,6 +29,12 @@ class Tennis
             3 => 'forty',
         ];
 
+        if ($this->player1->point > 2 && $this->player2->point > 2) {
+            if ($this->player1->point == $this->player2->point) {
+                return 'deuce';
+            }
+        }
+
         return $scoreText[$this->player1->point] . '-' . $scoreText[$this->player2->point];
     }
 

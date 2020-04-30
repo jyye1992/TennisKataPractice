@@ -72,6 +72,29 @@ class TennisTest extends TestCase
         $this->shouldScore('thirty-thirty');
     }
 
+    /**
+     * @test
+     */
+    public function deuce()
+    {
+        $this->givenPlayer1GainPoint(3);
+        $this->givenPlayer2GainPoint(3);
+
+        $this->shouldScore('deuce');
+
+
+        $this->givenPlayer1GainPoint(4);
+        $this->givenPlayer2GainPoint(4);
+
+        $this->shouldScore('deuce');
+
+
+        $this->givenPlayer1GainPoint(5);
+        $this->givenPlayer2GainPoint(5);
+
+        $this->shouldScore('deuce');
+    }
+
     protected function setUp()
     {
         parent::setUp();
