@@ -32,6 +32,12 @@ class Tennis
         if ($this->player1->point > 2 && $this->player2->point > 2) {
             if ($this->player1->point == $this->player2->point) {
                 return 'deuce';
+            } elseif (abs($this->player1->point - $this->player2->point)) {
+                if ($this->player1->point > $this->player2->point) {
+                    return 'Advantage: ' . $this->player1->name;
+                } else {
+                    return 'Advantage: ' . $this->player2->name;
+                }
             }
         }
 
